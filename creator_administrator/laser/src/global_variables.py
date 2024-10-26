@@ -79,14 +79,13 @@ with open(settings_file_path, 'r') as settings_file:
 
 jobs_dir_home = os.path.join(data_dir_home, 'print_jobs')
 tracker_file_path = os.path.join(data_dir_home, 'print_job_log.json')
-
-if not os.path.exists(jobs_dir_home):
-    os.mkdir(jobs_dir_home)
-
 temp_dir_home = os.path.join(data_dir_home, 'TEMP')
-if not os.path.exists(temp_dir_home):
-    os.mkdir(temp_dir_home)
 
+for directory in (data_dir_home, jobs_dir_home, temp_dir_home):
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+
+# remove temp_dir_home content
 for temp_item in os.listdir(temp_dir_home):
     try:
         shutil.rmtree(os.path.join(temp_dir_home, temp_item))
