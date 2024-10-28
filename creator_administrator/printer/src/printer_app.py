@@ -4,7 +4,9 @@ from typing import List
 
 from PyQt6 import QtWidgets
 
-sys.path.append(os.path.abspath('./')) # to find gv and prevent ModuleNotFoundError
+sys.path.append(os.path.abspath('')) # to find gv and prevent ModuleNotFoundError
+sys.path.append(os.path.abspath('creator_administrator')) # to find gv and prevent ModuleNotFoundError
+
 from creator_administrator.printer.src.global_variables import gv
 
 from src.app import MainWindow

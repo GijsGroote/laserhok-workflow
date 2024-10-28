@@ -83,7 +83,8 @@ class JobTracker:
         with open(self.tracker_file_path, 'w' ) as tracker_file:
             json.dump({}, tracker_file, indent=4)
 
-        InfoQMessageBox(self.parent, text='New job tracker file created')
+        # this message can be created without the parent being fully initialised, resulting in error
+        # InfoQMessageBox(self.parent, text='New job tracker file created')
 
     def checkTrackerFileHealth(self):
         if not os.path.exists(self.tracker_file_path):

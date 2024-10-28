@@ -2,12 +2,15 @@ import os
 import abc
 import webbrowser
 from functools import partial
-import qdarktheme
+# import qdarktheme
 
 from PyQt6 import QtGui
 from PyQt6.QtGui import QShortcut, QKeySequence 
 from PyQt6.QtWidgets import QMainWindow, QListWidget
 from PyQt6.uic import loadUi
+import qdarkstyle
+from qdarkstyle.dark.palette import DarkPalette
+
 
 from src.qdialog import AboutDialog
 from src.qmessagebox import TimedMessage
@@ -18,9 +21,18 @@ class MainWindow(QMainWindow):
         super().__init__(*args, **kwargs)
         loadUi(ui_global_path, self)
 
+        # well that does not really work
+        self.setStyleSheet(
+            qdarkstyle.load_stylesheet(
+                qt_api="pyqt6",
+                palette=DarkPalette,
+                # palette=LightPalette if darkdetect.isLight() else DarkPalette
+            )
+        )
+
         self.setWindowIcon(QtGui.QIcon(os.path.join(gv['FIGURES_DIR_HOME'], 'logo.ico')))
         if gv['DARK_THEME']:
-            qdarktheme.setup_theme()
+            # qdarktheme.setup_theme()
             self.setStyleSheet('''QToolTip { 
                            background-color: black; 
                            color: white; 

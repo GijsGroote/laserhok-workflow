@@ -1,27 +1,34 @@
-
-import os
 import sys
+import pytest
+from printer.src.printer_app import PrinterMainApp, PrintMainWindow
 
-from creator_administrator.printer.src.printer_app import PrinterMainApp
+# from creator_administrator.printer.src.printer_app import PrinterMainApp
 
-import unittest
 
-class TestMyApp(unittest.TestCase):
+@pytest.fixture(scope="module")
+def app():
+    """Fixture for creating a QApplication instance."""
+    application = PrinterMainApp(sys.argv)
+    yield application
+    application.quit()
 
-    def setUp(self):
-        self.printer_app = PrinterMainApp([])
-        self.printer_window = self.printer_app.build()
+@pytest.fixture
+def main_window(app):
+    """Fixture for creating a main window instance."""
+    window = PrintMainWindow()
+    yield window
+    window.close()
 
-    def test_appExists(self):
-        self.assertIsNotNone(self.printer_app)
-        self.assertIsNotNone(self.printer_window)
-    
-    def test_openSettingsDialg(self):
 
-        self.assertEqual(1, 1)
+def test_initialization(main_window):
+    """Test case to ensure main window initialization."""
+    assert main_window is not None
 
-    def tearDown(self):
-        self.printer_app.quit()
 
-if __name__ == '__main__':
-    unittest.main()
+# def test_click_buttons(main_window):
+#     """Test selecting all sessions."""
+#     hlayout = main_window.pushButtonHBoxLayout
+#
+#     for idx in range(hlayout.count()):
+#         if widget := hlayout.itemAt(idx).widget():
+#             widget.click()

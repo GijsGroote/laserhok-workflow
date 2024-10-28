@@ -159,7 +159,7 @@ with open(settings_file_path, 'r') as settings_file:
                           'FINISHED_MAIL_TEMPLATE'):
 
         if mail_template in gv_data:
-            if os.path.exists(gv_data[mail_template]):
+            if os.path.exists(gv_data[mail_template][0]):
                 gv[mail_template] = gv_data[mail_template]
             else:
                 raise FileNotFoundError(f'could not find file: {gv_data[mail_template]}')
